@@ -53,9 +53,14 @@ print('---------------------------------')
 
 m_cookies = r.cookies
 
-collection_page = s.get('http://www.zhihu.com/collections/mine', headers = headers)
+collection_page = s.get('http://www.zhihu.com/collections/mine', headers = headers, cookies = m_cookies)
 soup = BeautifulSoup(collection_page.text, "html.parser")
 print(soup.head.title)
 
-collc = collections(soup)
-print(collc)
+collcs = collections(soup)
+print(collcs)
+
+for collc in collcs:
+    print(collc)
+    contents = s.get(collcs[collc], headers = headers)
+    soup = BeautifulSoup(contents.text, 'html.parser')
